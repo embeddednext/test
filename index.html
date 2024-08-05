@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Secure Page</title>
+  <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.js"></script>
+  <script src="encrypted-content.js"></script>
+</head>
+<body>
+  <div id="content">Loading...</div>
+  <script>
+    const passphrase = prompt("Enter the passphrase to view the content:");
+
+    if (passphrase) {
+      try {
+        const decryptedContent = CryptoJS.AES.decrypt(encryptedContent, passphrase).toString(CryptoJS.enc.Utf8);
+
+        if (decryptedContent) {
+          document.getElementById('content').innerHTML = decryptedContent;
+        } else {
+          document.getElementById('content').innerHTML = 'Incorrect passphrase!';
+        }
+      } catch (e) {
+        document.getElementById('content').innerHTML = 'Error decrypting content!';
+      }
+    } else {
+      document.getElementById('content').innerHTML = 'Passphrase is required!';
+    }
+  </script>
+</body>
+</html>
